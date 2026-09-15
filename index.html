@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Senha do Dia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f6f9;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 20px;
+        }
+        .info {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .senha-box {
+            background-color: #007bff;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 8px;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Senha de Acesso do Dia Balança PRIX 5</h2>
+    <p class="info" id="data-atual">Carregando data...</p>
+    
+    <div class="senha-box" id="resultado">---</div>
+</div>
+
+<script>
+    function gerarSenhaHoje() {
+        const hoje = new Date();
+        
+        // Pega dia e mês (adiciona '0' à esquerda se for menor que 10)
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0'); // Mês inicia em 0 no JS
+        
+        // Exibe a data legível na tela
+        document.getElementById('data-atual').innerText = `Data: ${dia}/${mes}/${hoje.getFullYear()}`;
+        
+        // Junta dia e mês (ex: dia 15 e mês 09 vira o número 1509)
+        const diaEMesNumero = parseInt(`${dia}${mes}`, 10);
+        
+        // Calcula a senha: 2011 + DiaMês
+        const senha = 2011 + diaEMesNumero;
+        
+        // Exibe o resultado no elemento HTML
+        document.getElementById('resultado').innerText = senha;
+    }
+
+    // Executa a função automaticamente assim que a página é carregada
+    window.onload = gerarSenhaHoje;
+</script>
+
+</body>
+</html>
